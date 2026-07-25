@@ -1,0 +1,36 @@
+# Local credentials and private settings
+.env
+*.key
+*.pem
+
+# Python caches and local environments
+__pycache__/
+*.py[cod]
+.pytest_cache/
+.mypy_cache/
+.ruff_cache/
+.venv/
+venv/
+
+# Copyright-restricted source files
+data/raw_pdfs/
+*.pdf
+
+# Generated models, metrics, figures, and predictions
+artifacts/
+outputs/
+results/
+predictions/
+models/
+checkpoints/
+*.joblib
+*.pt
+*.pth
+*.pkl
+
+# Logs and editor files
+*.log
+.idea/
+.vscode/
+.DS_Store
+Thumbs.db

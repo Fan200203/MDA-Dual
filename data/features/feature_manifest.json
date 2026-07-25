@@ -1,0 +1,15 @@
+{
+  "microbe_feature_shape": [2175, 402],
+  "disease_feature_shape": [810, 391],
+  "pair_feature_dimension": 793,
+  "block_order": {
+    "microbe": ["latent_128", "external_18", "global_gip_64", "peryton_svd64", "disbiome_svd64", "hmdad_svd64"],
+    "disease": ["latent_128", "external_7", "global_gip_64", "peryton_svd64", "disbiome_svd64", "hmdad_svd64"]
+  },
+  "public_release_note": "Raw similarity matrices copied from the reference implementation are not included. The repository contains only mapped, source-specific, SVD-reduced CSV feature blocks and an independent clean-room builder from officially obtained association tables.",
+  "integrated_files": {
+    "microbe": "one_step_microbe_features_402.csv",
+    "disease": "one_step_disease_features_391.csv",
+    "blocks": "feature_blocks.csv"
+  }
+}

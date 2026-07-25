@@ -1,0 +1,69 @@
+project:
+  label_encoding:
+    decrease: -1
+    pseudo_no_relation: 0
+    increase: 1
+
+pdf_pipeline:
+  api_provider: DeepSeek
+  model: deepseek-chat
+  max_pdf_pages: 10
+  max_input_characters: 8000
+  max_output_tokens: 8000
+  temperature: 0.3
+  retries: 3
+  timeout_seconds: 60
+
+two_step:
+  input: data/model/A_sign_matrix.csv
+  random_seed: 42
+  folds: 5
+  transE:
+    existence_embedding_dim: 50
+    direction_embedding_dim: 128
+    epochs: 100
+    batch_size: 256
+    training_loop: sLCWA
+  reliable_negative:
+    bootstrap_iterations: 150
+    scalar_score_mlp_hidden_units: 64
+    epochs_per_iteration: 20
+    train_positive_to_reliable_negative_ratio: 1.0
+  gcn:
+    existence_output_dim: 64
+    epochs: 200
+  existence_mlp:
+    layer_sizes: [232, 128, 64, 1]
+    dropout: 0.5
+    learning_rate: 0.001
+    epochs: 100
+    candidate_threshold: 0.99
+  direction:
+    executed_feature_mode: actual-kge
+    optional_manuscript_feature_mode: manuscript-kge-gcn
+    classifiers: [MLP, RandomForest, SVM, XGBoost]
+
+one_step:
+  input: data/model/A_sign_matrix.csv
+  random_seed: 47
+  latent_recipe: absolute_A_sign_to_GIP_plus_association_profile_to_full_SVD128_to_zscore
+  latent_dim: 128
+  external_dimensions:
+    microbe: 18
+    disease: 7
+  global_gip_svd_dim: 64
+  source_svd_dim: 64
+  sources: [Peryton, Disbiome, HMDAD]
+  pseudo_zero_count: 11400
+  holdout_fraction: 0.20
+  cross_validation_folds: 10
+  xgboost:
+    objective: multi:softprob
+    num_class: 3
+    n_estimators: 120
+    max_depth: 6
+    learning_rate: 0.08
+    subsample: 0.9
+    colsample_bytree: 0.9
+    eval_metric: mlogloss
+    tree_method: hist
